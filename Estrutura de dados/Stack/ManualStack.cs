@@ -1,123 +1,71 @@
 using System;
+using System.Collections.Generic;
 
-namespace ManualStack
+namespace StackFunctions
 {
-    class Stack
+    internal class Program
     {
-        private char[] elements;
-        private int top, size;
-
-        public Stack(int capacity)
+        static void Main(string[] args)
         {
-            elements = new char[capacity];
-            top = -1;
-            size = 0;
-        }
-        public void Push(char character)
-        {
-            if (size == elements.Length)
-            {
-                Console.WriteLine("The stack is full!");
-                return;
-            }
-            elements[++top] = character;
-            size++;
-        }
-        public void Display()
-        {
-            if (IsEmpty())
-            {
-                Console.WriteLine("Your stack is empty!");
-                return;
-            }
-            Console.WriteLine("Stack: ");
-            for (int i = top; i >= 0; i--)
-            {
-                Console.WriteLine(" " + elements[i]);
-            }
-        }
-        public int Size()
-        {
-            return size;
-        }
-        public char Peek()
-        {
-            if (IsEmpty())
-            {
-                Console.WriteLine("The stack has no elements to display!");
-                return '\0'; 
-            }
-            else
-            {
-                return elements[top];
-            }
-        }
-        public char Pop()
-        {
-            if (IsEmpty())
-            {
-                Console.WriteLine("Your stack is empty! No elements to remove.");
-                return '\0';
-            }
-
-            char c = elements[top--];
-            size--;
-            return c;
-        }
-
-        public bool IsEmpty()
-        {
-            return size == 0;
-        }
-    }
-
-    class Program
-    {
-        static void Main()
-        {
-            Stack stack = new Stack(10);
+            Stack<char> stack = new Stack<char>();
             char option;
-
             do
             {
                 Console.WriteLine("Choose an option: ");
-                Console.WriteLine("1 - Push an element onto the Stack: ");
-                Console.WriteLine("2 - Pop an element from the Stack: ");
-                Console.WriteLine("3 - Display the Stack elements: ");
-                Console.WriteLine("4 - Show the top of the Stack: ");
-                Console.WriteLine("5 - Show the Stack size: ");
+                Console.WriteLine("1 - Push element onto Stack: ");
+                Console.WriteLine("2 - Pop element from Stack: ");
+                Console.WriteLine("3 - Display Stack elements: ");
+                Console.WriteLine("4 - Show top of Stack: ");
+                Console.WriteLine("5 - Show Stack size: ");
                 Console.WriteLine("0 - Exit: ");
-
                 option = Console.ReadKey().KeyChar;
-                Console.ReadLine(); 
+                Console.WriteLine();
                 switch (option)
                 {
                     case '1':
-                        Console.WriteLine("Enter the character to push:");
+                        Console.WriteLine("Enter the character you want to push:");
                         char characterToPush = Console.ReadKey().KeyChar;
                         Console.WriteLine();
                         stack.Push(characterToPush);
                         break;
                     case '2':
-                        Console.WriteLine("Element removed: " + stack.Pop());
+                        if (stack.Count > 0)
+                            Console.WriteLine("Top element removed: " + stack.Pop());
+                        else
+                            Console.WriteLine("Stack is empty");
                         break;
                     case '3':
-                        stack.Display();
+                        if (stack.Count == 0)
+                            Console.WriteLine("Stack is empty");
+                        else
+                            Console.WriteLine("Stack elements: ");
+                        foreach (var item in stack)
+                        {
+                            Console.WriteLine(" " + item);
+                        }
                         break;
                     case '4':
-                        Console.WriteLine("Top of the stack: " + stack.Peek());
+                        if (stack.Count > 0)
+                            Console.WriteLine("The top of the stack is: " + stack.Peek());
+                        else
+                            Console.WriteLine("There are no items in the stack");
+
+                        Console.WriteLine();
+
                         break;
                     case '5':
-                        Console.WriteLine("Stack size: " + stack.Size());
+                        Console.WriteLine("The size of the stack is: " + stack.Count);
+                        Console.WriteLine();
                         break;
                     case '0':
-                        Console.WriteLine("Exiting...");
+                        Console.WriteLine("Exiting....");
                         break;
-                    default:
-                        Console.WriteLine("Invalid option!");
-                        break;
+
                 }
+                Console.WriteLine();
+
             } while (option != '0');
+
         }
     }
 }
