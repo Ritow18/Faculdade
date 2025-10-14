@@ -1,3 +1,7 @@
+#include <iostream>
+#include <vector>
+using namespace std; 
+
 struct Raiz {
 	string valor;
 	Raiz* rigth;
