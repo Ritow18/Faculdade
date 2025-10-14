@@ -1,4 +1,8 @@
-  struct Node {
+#include <iostream>
+#include <vector>
+using namespace std; 
+
+struct Node {
     int key;
     Node* left;
     Node* right;
